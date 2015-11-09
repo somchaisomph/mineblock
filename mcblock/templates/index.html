@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen">
+
+<link rel="stylesheet" href="/css/style.css">
+
+  <title>Blockly for Minecraft</title>
+ 
+  
+  <style>
+   .table tbody tr:hover td, .table tbody tr:hover th {
+      background-color: #eeeeea;  
+    }	
+    #blocklyArea {
+     height: 99%;
+      background: #fc9;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<!--
+				<a href="../" class="navbar-brand">
+					<img src="/images/icons/3D-Grass-icon.png" >
+					<b class="navbar-text">MineBlock</b>
+				</a>
+				
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>c
+				</button>									
+				-->
+			</div><!-- / navbar-heaer-->
+			<button class="btn btn-success navbar-btn" type="submit" onclick="do_process()" id='run_btn'>Run Code</button>
+                        <div class="btn-group">
+                           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               Database <span class="caret"></span>
+  			   </button>
+  				<ul class="dropdown-menu">
+				    <li><a href="#" id='export_btn' data-toggle="modal" data-target="#backupModal">Save blocks </a></li>
+				    <li><a href="#" data-toggle="modal" data-target="#restoreModal" >Retrieve blocks </a></li>
+				  </ul>
+			</div>
+
+			
+			<p class="navbar-text navbar-right"> <a href="#" class="navbar-link">Help</a></p>
+		</div> <!-- /container -->	
+	</div><!-- / navbar -->
+	<br /><br /><br /><br />
+	
+	<div class="container">
+		<div class="row">
+			<div id="blocklyDiv" class="col-xs-12 col-sm-12 col-md-12" style="height:600px;" ></div>	
+		</div><!-- /row -->
+	</div><!-- /container -->	
+	<div class="container">
+		<footer>
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="list-unstyled">
+						<li class="pull-right"><a href="#top">Back to top</a></li>
+						<li><a href="http://#" >Blog</a></li>						
+						<li><a href="https://github.com/">GitHub</a></li>						
+					</ul>
+					<p>Made by <a href="#" rel="nofollow">N3A Media</a></p>
+				</div>
+			</div><!-- /row -->
+		</footer>
+	</div><!-- /container -->
+	<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Are you sure ?</h4>
+      </div>
+      <div class="modal-body">
+        You are about to close MineBlock, are you ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" onclick="do_close()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Warning modal -->
+<div id="warningModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>	
+        <h4 class="modal-title"><span class="label label-danger">Alert !</span></h4>
+      </div>
+      <div class="modal-body" id="warning-msg-div">
+        <p id='warning-msg'>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--Backup data modal -->
+<div id="backupModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>	
+        <h4 class="modal-title"><span class="label label-info">Back up your Blocks</span></h4>
+      </div>
+      <div class="modal-body" id="warning-msg-div">
+        <form>
+  		<div class="form-group">
+    		<label for="key-input">What is your blocks name ? : </label>
+		<input type="text" class="form-control" id="key-input" placeholder="Steve">
+    		
+  		</div>
+  
+	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success"  onclick="backup_blocks()">OK</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Restore Modal -->
+<div class="modal fade" id="restoreModal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" ><span class="label label-info">Your Blocks</span></h4>
+      </div><!-- / modal-header -->
+      <div class="modal-body">
+        <div class="container-fluid">
+         <div class="table-responsive">
+           <table class="table table-striped" id='blocks-table' >         
+           </table>
+         </div> <!-- / table-responsive" -->
+         <div class="btn-toolbar" role="toolbar" id="pages-toolbar">
+         </div>
+       </div> <!-- / container -->
+      </div> <!-- /modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="delete_selected_ids()">Delete</button> 
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div><!-- / modal-body -->
+    </div>
+  </div>
+</div>
+<!-- toolbox -->
+  <xml id="toolbox" style="display: none">
+	  <category name="Loops">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <block type="math_number">
+          <field name="NUM">10</field>
+        </block>
+      </value>
+    </block>
+    <block type="controls_whileUntil"></block>
+    <block type="controls_for">
+      <value name="FROM">
+        <block type="math_number">
+          <field name="NUM">1</field>
+        </block>
+      </value>
+      <value name="TO">
+        <block type="math_number">
+          <field name="NUM">10</field>
+        </block>
+      </value>
+      <value name="BY">
+        <block type="math_number">
+          <field name="NUM">1</field>
+        </block>
+      </value>
+    </block>
+    <block type="controls_forEach"></block>
+    <block type="controls_flow_statements"></block>
+  </category>
+    <sep></sep>
+    <category name="Logic">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+    <block type="logic_null"></block>
+    <block type="logic_ternary"></block>
+  </category>
+  <sep></sep>
+  <category name="Variables" custom="VARIABLE"></category>
+  <sep></sep>
+  <category name="Functions" custom="PROCEDURE"></category>
+  
+    <sep></sep>
+    <category name="Math">
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block>
+    <block type="math_trig"></block>
+    <block type="math_random_int"></block>
+  </category>
+  <sep></sep>
+  <category name="Text">
+    <block type="text"></block>   
+    <block type="mc_print"></block>
+   </category> 
+   
+    <sep></sep>
+    <category name="Movement">
+		<block type="steve_forward"></block>
+		<block type="steve_backward"></block>
+		<block type="steve_left"></block>
+		<block type="steve_right"></block>
+		<block type="steve_up"></block>
+		<block type="steve_down"></block>
+		<block type="steve_start_drawing_pos"></block>
+    </category>
+    <sep></sep>
+    <category name="Where is it?">
+		<block type="steve_where_x"></block>
+		<block type="steve_where_y"></block>
+		<block type="steve_where_z"></block>
+    </category>
+    <sep></sep>
+    <category name="Settings">
+		<block type="steve_set_heading"></block>
+		<block type="steve_set_ver_heading"></block>
+		<block type="steve_set_position"></block>
+		<block type="steve_speed"></block>
+		<block type="steve_set_pen_block"></block>
+    </category>
+    <sep></sep>
+    <category name="Block Types">
+		<block type="steve_block_grp_1"></block>
+		<block type="steve_block_grp_2"></block>
+		<block type="steve_block_grp_3"></block>
+		<block type="steve_block_grp_4"></block>
+					
+    </category>
+   <sep></sep>
+    <category name="Utility">
+		<block type="time_sleep"></block>
+		<block type="steve_clear_area"></block>
+    </category>
+  </xml>
+  <script src="/js/jquery-1.11.3.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+ <script src="/js/scripts.js"></script>
+
+  <script src="/js/blockly_compressed.js"></script>
+  <script src="/js/python_compressed.js"></script>
+  <!--script src="/js/javascript_compressed.js"></script --> 
+  <script src="/js/mc/generators/cmd_grp.js"></script>
+  <script src="/js/mc/generators/mc_turtle.js"></script>
+  <script src="/js/blocks_compressed.js"></script>
+  <script src="/js/msg/js/en.js"></script>
+  <script>
+    var selected_id = new Array();
+     $('#restoreModal').on('shown.bs.modal', function (e) {
+       get_blocks_from_db();
+      });
+      $('#restoreModal').on('hide.bs.modal',function(e){
+        $('#blocks-table').html("");
+	selected_id.length=0;
+      })
+     
+
+      var blocklyDiv = document.getElementById('blocklyDiv');
+      var workspace = Blockly.inject(blocklyDiv,
+        {	media: '/media/',
+			toolbox: document.getElementById('toolbox'),
+			grid: {spacing: 20,
+				length: 3,
+				colour: '#ccc',
+				snap: true},
+			trashcan: true});
+  
+  
+  function do_process(){
+
+	  document.getElementById("run_btn").disabled = true;
+	  code = Blockly.Python.workspaceToCode(workspace);
+	  $.ajax({
+		  url: "/process", 
+		  data:{"mc_code":code},
+		  success: function(result){
+	                if(result == "ok"){
+			    console.log("Done");
+                         }else if (result=="fail"){
+				$('#warning-msg').html("<b>System Error, You should restart Rasberry Pi.</b>");
+				$('#warningModal').modal('show')
+                            console.log("Check system");
+			 }else if (result=="mc not started"){
+				$('#warning-msg').html("<b>Please start Minecraft Pi</b>");
+				$('#warningModal').modal('show')
+			    console.log("Please start Minecraft Pi")
+                         }
+			document.getElementById("run_btn").disabled = false;
+			}
+		});
+		
+  }
+
+function backup_blocks() {
+     $('#backupModal').modal('hide');
+     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace );
+     var data = Blockly.Xml.domToText(xml);
+
+     var key = $('#key-input').val();    
+     if(key=='') key='Steve';
+     $.ajax({
+      		url:"/save_blocks",
+                method:"GET",
+		
+      		data:{"data":data,"key":key},
+      		success:function(result){
+                   console.log(result);
+      		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+		 alert(errorThrown);
+		}
+    });
+  
+ 
+}
+
+
+function get_blocks_from_db(limit,offset,request_page,total_page){
+  if(!limit) limit=3;
+  if(!offset){
+    offset=0;
+    request_page=0;
+    total_page=0;
+  }
+  $('#blocks-table').html("");
+   selected_id.length=0;
+   $.ajax({
+     url:"/get_blocks",
+     method:"POST",
+     
+     data :{"limit":limit,"offset":offset,"request_page":request_page,"total_page":total_page},
+     success:function(data){
+       var tbcont="<thead><td></td><td>ID</td><td>Name</td><td>Date</td><td></td></thead>";
+       tbcont+="<tbody class='table-hover'>";
+       
+       console.log(data);
+       /*
+        data from server is object form {'result':Array(2)}
+        Array[0] is {'page_info':{'current_page:xx,total_page:xx}}
+        Array[1] is {'blocks':[{row1},{row2},...]}
+       */
+       page_info=data.result[0].page_info
+       current_page = parseInt(page_info.current_page);
+       total_page = parseInt(page_info.total_page); 
+       blocks_data= data.result[1].blocks;
+       for(i = 0 ;i< blocks_data.length;i++){          
+           row = blocks_data[i];
+           tbcont+="<tr ><td><input type='checkbox' value='"+row.id+"' /></td><td>"+row.id+"</td><td>"+row.key+"</td><td>"+row.access_time+"</td><td><button onclick='restore_blocks("+row.id+")' class='btn-success' >Retrive</button></td></tr>";
+       }
+       
+       tbcont+="</tbody>";
+       tbcont+="</table>";
+       $('#blocks-table').html(tbcont);
+       next_page = current_page+1;
+       prev_page = current_page-1;
+       $('#pages-toolbar').html('');
+       if(next_page  < total_page){                 
+          if(prev_page >= 0){
+             offset = limit*next_page;
+             $('#pages-toolbar').html('<button class="btn-group" role="group" onclick="get_blocks_from_db('+
+                  limit+','+(limit*prev_page)+','+prev_page+','+total_page+')">Prev</button><button class="btn-group" role="group" onclick="get_blocks_from_db('+
+                  limit+','+(limit*next_page)+','+next_page+','+total_page+')">Next</button>');
+
+             console.log("<button>Prev</button><button>Next</button>")
+          }else{
+             
+             $('#pages-toolbar').html('<button class="btn-group" role="group" onclick="get_blocks_from_db('+
+                  limit+','+(limit*next_page)+','+next_page+','+total_page+')">Next</button>');
+             console.log("<button>Next</button>")
+          }  
+       }else{
+           $('#pages-toolbar').html('<button class="btn-group" role="group" onclick="get_blocks_from_db('+
+                  limit+','+(limit*prev_page)+','+prev_page+','+total_page+')">Prev</button>');
+          console.log("");
+       }
+       $('input:checkbox').change(function(){       
+        if($(this).is(":checked")){
+          selected_id.push($(this).val())
+        }else {
+           idx = selected_id.indexOf($(this).val());
+           if(idx > -1){
+               selected_id.splice(idx,1);
+           }
+        }
+        
+      });
+
+     },
+     error:function(XMLHttpRequest, textStatus, errorThrown){  
+	console.log(errorThrown);
+     }
+  });
+}
+
+function restore_blocks(id) {
+    $('#restoreModal').modal('hide');
+    selected_id.length=0;
+   
+    
+    $.ajax({
+      url:"/get_block_by_id",
+      data:{"block_id":id},
+      dataType:"json",
+      success:function(data){
+       block_data = data.result[0].data
+       var xml = Blockly.Xml.textToDom(block_data);
+       Blockly.Xml.domToWorkspace( Blockly.mainWorkspace, xml );
+       
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrown){  
+	console.log(errorThrown);
+     }
+    });
+    
+
+}
+
+function delete_selected_ids(){
+  if(selected_id.length<1)
+     return;
+  $.ajax({
+    url: "/delete_blocks_by_id",
+    method: "POST",
+    data: JSON.stringify({ids: selected_id}),
+    contentType: "application/json; charset=utf-8",
+    success: function(dat) { 
+	//console.log(dat); 
+        get_blocks_from_db();
+    },
+    error:function(XMLHttpRequest, textStatus, errorThrown){  
+	console.log(errorThrown);
+     }
+   });
+}
+
+  </script>
+</body>
+</html>
