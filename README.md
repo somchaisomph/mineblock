@@ -38,25 +38,39 @@ $ cd mineblock
 <p>1) Open file "mineblock.desktop"  with your text editor then you can see liens :</p>
 <pre>
  Exec=python [your absolute path of mineblock directyr]/mineblock.py
-Icon= [your absolute path of mineblock directory]/static/images/icons/mineblock.png
+Icon= [your absolute path of mineblock directory]/mcblock/static/images/icons/mineblock.png
 </pre>
 <p>
 Replace [your absolute path of mineblock directory] with yours, save it. Copy mineblock.desktop to /usr/share/applications.
 
-<p>2) Make mineblock start in boot time.</p>
+<p>2) Make mineblock start at boot time </p>
+<p><b>Raspbian Wheezy :</b></p>
 <pre>
 $ cd /etc/init.d
 $ sudo nano rc.local
 </pre>
 <p>
-Insert these two lines to the bottom of rc.local (don't forget to change <i>[your absolute path of mineblock directory]</i> to real path).
+Scroll to bottom then insert these two lines to the bottom of rc.local (don't forget to change <i>[your absolute path of mineblock directory]</i> to real path).
 </p>
 <pre>
 cd [your absolute path of mineblock directory]
 python run.py
 </pre>
+<p><b>Raspbian Jessie :</b></p>
+<pre>
+$ cd /etc/
+$ sudo nano profile
+</pre>
 <p>
-save rc.local then reboot. After rebooting, check if mineblock is running with 
+Scroll to bottom then insert these two lines to the bottom of rc.local (don't forget to change <i>[your absolute path of mineblock directory]</i> to real path).
+</p>
+<pre>
+cd [your absolute path of mineblock directory]
+python run.py
+</pre>
+
+<p>
+save then reboot. After rebooting, check if mineblock is running with 
 </p>
 <pre>
 $ ps -ef | grep python
@@ -66,7 +80,7 @@ You should see :
 <pre>
 /usr/bin/python run.py
 </pre>
-appear on scren. If it doesn't, email me.
+appear on screen. 
 </p>
 <h3>How to play</h3>
 <p>
