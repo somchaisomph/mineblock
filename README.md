@@ -1,5 +1,7 @@
-# mineblock
-What mineblock is :
-Installation :
-  Dependencies :
-Examples:
+# MineBlock
+##What mineblock is :
+MineBlock is a web application
+
+##Installation :
+###Dependencies :
+##Examples:
