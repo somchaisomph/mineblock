@@ -1,4 +1,4 @@
-<h1><img src="https://www.dropbox.com/s/dllvwp7776idjms/mineblock.png?dl=0" align="middle"> MineBlock</h1>
+<h1><img src="https://www.dropbox.com/s/dllvwp7776idjms/mineblock.png" align="middle"> MineBlock</h1>
 <p>
 Minecraft Pi Edition(http://pi.minecraft.net/) is not only a game but also instruction media for learning to program and algorithmic thinking. It has been bundled in Raspbian already, you do not need to install it yourself. To start learning program with Minecraft, you need some knowledge about Python syntax and it is not always easy for some starters. I has wrapped Python API with Blockly (https://developers.google.com/blockly/). This makes new starters or kids do not need to concern about Python syntax and be able to focus on algorithmic thinking only.
 </p>
