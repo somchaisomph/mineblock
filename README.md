@@ -49,12 +49,27 @@ $ cd /etc/init.d
 $ sudo nano rc.local
 </pre>
 <p>
-Insert these two lines to the bottom of rc.local (don't forget to change [your absolute path of mineblock directyry] to real path.
+Insert these two lines to the bottom of rc.local (don't forget to change <i>[your absolute path of mineblock directory]</i> to real path).
 </p>
 <pre>
 cd [your absolute path of mineblock directory]
 python run.py
 </pre>
 <p>
-save rc.local then reboot.
+save rc.local then reboot. After rebooting, check if mineblock is running with 
+</p>
+<pre>
+$ ps -ef | grep python
+</pre>
+<p>
+You should see :
+<pre>
+/usr/bin/python run.py
+</pre>
+appear on scren. If it doesn't, email me.
+</p>
+<h3>How to play</h3>
+<p>
+1) Open Mineblock from menu bar (in case of installing PySide/PyQT4)
+
 </p>
