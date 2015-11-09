@@ -12,14 +12,26 @@ Minecraft Pi Edition(http://pi.minecraft.net/) is not only a game but also instr
 </p>
 <h3>PySide and PyQt4</h3>
 <p>
-This step is an option you do not need to install if you do not want to. Since MineBlock is web application you can use Epiphamy web browser bundled with Raspbian (or anyone you install by yourself) to run MineBlock. Just type this url : http://localhost:5000 to web browser.
-</p>
-<p>
-To install PySide and PyQt4 (at time of writing this document, only pyqt4 is supported in Raspbian Jessie)  :
+This step is an option you do not need to install if you do not want to. Since MineBlock is web application you can use Epiphamy web browser bundled with Raspbian (or anyone you install by yourself) to run MineBlock. Just type this url : http://localhost:5000 to web browser. To install PySide and PyQt4 (at time of writing this document, only pyqt4 is supported in Raspbian Jessie)  :
 </p>
 <pre>
-$ sudo apt-get install python-pyside python-pyside.qtgui python-pyside.qtwebkit python-pyside.qtxml python-qt4 python-qt4-dev
+$ sudo apt-get install python-pyside \
+python-pyside.qtgui \
+python-pyside.qtwebkit \
+python-pyside.qtxml \
+python-qt4 \
+python-qt4-dev
 </pre>
 
-###Dependencies :
-##Examples:
+<h3>Get MineBlock</h3>
+<p>1) If you do not have git on your Raspberry Pi, install it :</p>
+<pre>
+$ sudo apt-get install git
+</pre>
+<p>2) Get MineBlock to your Raspberry Pi.</p>
+<pre>
+$ git clone https://github.com/somchaisomph/mineblock.git
+$ cd mineblock
+
+</pre>
+
