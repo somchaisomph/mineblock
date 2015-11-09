@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=MineBlock
-Comment=Fun with Blocks and Turtle Graphics
-Exec=python /home/pi/blockly-proj/mineblock.py
-Icon=/home/pi/blockly-proj/ncblock/static/images/icons/mineblock.png
+Comment=Fun with Minecraft together with learning to program
+Exec=python /home/pi/mineblock/mineblock.py
+Icon=/home/pi/mineblock/ncblock/static/images/icons/mineblock.png
 Terminal=false
 Type=Application
 Categories=Application;Game;
