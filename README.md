@@ -35,12 +35,26 @@ $ cd mineblock
 </pre>
 <h3>Start MineBlock</h3>
 <p>
-  Mineblock is totally Python web application you need to start it before using it. 
+  Mineblock is actually web application you need to start it before using it.
 </p>
 <pre>
 $ cd  /home/pi/mineblock 
 $ pytho run.py
 </pre>
+<p>
+Then open Minecraft Pi.
+</p>
+<p>
+You have 2 choices to open MineBlock 
+</p>
+<ol>
+<li>By web browser with url : http://localhost:5000   or </li>
+<li>By calling mineblock.py
+<pre>
+$ python mineblock.py
+</pre>
+</li>
+</ol>
 <h3>A little bit further. </h3>
 <p>1) Open file "mineblock.desktop"  with your text editor then you can see liens :</p>
 <pre>
