@@ -10,7 +10,7 @@ Minecraft Pi Edition(http://pi.minecraft.net/) is not only a game but also instr
 <pre>$ sudo pip install flask</pre>
 <p>If you want to install Flask with virtualenv environment please visit : http://flask.pocoo.org/docs/0.10/installation/#installation
 </p>
-<h3>PySide and PyQt4</h3>
+<h3>PySide and PyQt4 (Option)</h3>
 <p>
 This step is an option you do not need to install if you do not want to. Since MineBlock is web application you can use Epiphamy web browser bundled with Raspbian (or anyone you install by yourself) to run MineBlock. Just type this url : http://localhost:5000 to web browser. To install PySide and PyQt4 (at time of writing this document, only pyqt4 is supported in Raspbian Jessie)  :
 </p>
@@ -35,17 +35,17 @@ $ cd mineblock
 </pre>
 <h3>Start MineBlock</h3>
 <p>
-  Mineblock is actually web application you need to start it before using it.
+ 1) Mineblock is actually web service, you need to start it before using it.
 </p>
 <pre>
 $ cd  /home/pi/mineblock 
 $ pytho run.py
 </pre>
 <p>
-Then open Minecraft Pi.
+2) Open Minecraft Pi.
 </p>
 <p>
-You have 2 choices to open MineBlock 
+3) You have 2 choices to open MineBlock 
 </p>
 <ol>
 <li>By web browser with url : http://localhost:5000   or </li>
@@ -55,16 +55,26 @@ $ python mineblock.py
 </pre>
 </li>
 </ol>
-<h3>A little bit further. </h3>
-<p>1) Open file "mineblock.desktop"  with your text editor then you can see liens :</p>
-<pre>
- Exec=python [your absolute path of mineblock directyr]/mineblock.py
-Icon= [your absolute path of mineblock directory]/mcblock/static/images/icons/mineblock.png
-</pre>
+<h3>Something special</h3>
 <p>
-Replace [your absolute path of mineblock directory] with yours, save it. Copy mineblock.desktop to /usr/share/applications.
+1) To create desktop shortcut of MineBlock:
+   <ol>
+    <li> <p>Open "mineblock.desktop"  with your text editor you will see </p>
+    <pre>
+   Exec=python <i>[your absolute path of mineblock directyr]</i>/mineblock.py
+   Icon= <i>[your absolute path of mineblock directory]</i>/mcblock/static/images/icons/mineblock.png 
+  </pre>
+   <p>
+    Replace <i>[your absolute path of mineblock directory]</i> with absolute path where you placed MineBlock (It should be "/home/pi/mineblock")
+   </p>
+    </li>
+    <li>
+     Copy mineblock.desktop to /usr/share/applications
+    </li>
+  </ol>  
+  </p>
 
-<p>2) Make mineblock start at boot time </p>
+<p>2) To start MineBlock web service at boot time </p>
 <p><b>Raspbian Wheezy :</b></p>
 <pre>
 $ cd /etc/init.d
@@ -78,20 +88,33 @@ cd [your absolute path of mineblock directory]
 python run.py
 </pre>
 <p><b>Raspbian Jessie :</b></p>
-<pre>
-$ cd /etc/
-$ sudo nano profile
-</pre>
-<p>
-Scroll to bottom then insert these two lines to the bottom of rc.local (don't forget to change <i>[your absolute path of mineblock directory]</i> to real path).
+<ol>
+<li><p>
+Create a blank file and give it a name with .sh  for example start.sh and type these two lines.
 </p>
 <pre>
-cd [your absolute path of mineblock directory]
+cd /home/pi/mineblock
 python run.py
 </pre>
-
 <p>
-save then reboot. After rebooting, check if mineblock is running with 
+Save it and make it executable with command :
+</p>
+<pre>
+sudo chmod +x start.sh
+</pre>
+<li>
+To add it to cronjob you need to modify crontab which is table containing list of jobs to de run according to their detail.
+<pre>
+$ sudo crontab -e
+</pre>
+<p>
+You may be asked to select editor to modify crontab, choose any one is ok. Scroll to the bottom and add this command :
+</p>
+<pre>
+@reboot /home/pi/mineblock/start.sh
+</pre>
+<p>
+It tells Raspberry Pi'cron to call /home/pi/mineblock/start.sh every boot, reboot, restart. Try reboot your Raspberry Pi. After rebooting, check if mineblock is running with 
 </p>
 <pre>
 $ ps -ef | grep python
@@ -103,8 +126,7 @@ You should see :
 </pre>
 appear on screen. 
 </p>
-<h3>How to play</h3>
-<p>
-1) Open Mineblock from menu bar (in case of installing PySide/PyQT4)
+</li>
+</ol>
 
-</p>
+Ok Let's fun !  For more information, visit my blog http://tkblocky.blogspot.com/
