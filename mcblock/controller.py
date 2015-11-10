@@ -10,15 +10,10 @@ model = Model()
 
 
 def connect_db():
-   app_name = "mcblock"
-   DATABASE=os.getcwd()+"/"+app_name+"/data/blocks-shelve.sqlite"
+   DATABASE=os.getcwd()+"/mcblock/data/blocks-shelve.sqlite"
    return sqlite3.connect(DATABASE)
 
-#def get_db():
-#    db = getattr(g, '_database', None)
-#    if db is None:
-#        db = g._database = connect_to_database()
-#    return db
+
 
 def query_db(query, args=(),one=False):
    cur = g.db.execute(query,args)
@@ -120,7 +115,7 @@ def save_blocks():
 
 @app.route('/get_blocks',methods=['POST'])
 def get_blocks():
-    #try:
+  
       limit = request.form["limit"]
       offset  = request.form["offset"]
       current_page = request.form["request_page"]
@@ -135,8 +130,7 @@ def get_blocks():
       print blocks_dict   
     
       return jsonify(result=[{'page_info':{'total_page':total_page,'current_page':current_page}},{'blocks':blocks_dict}])
-    #except:     
-    #  return jsonify(result=[""]) 
+    
 
 @app.route('/get_block_by_id',methods=['GET'])
 def get_block_by_id():
