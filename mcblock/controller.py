@@ -91,7 +91,7 @@ def send_data(filename):
 def do_process():
 	if request.method=='GET' :
 		mc_code = request.args.get('mc_code')		
-		return model.save_data(mc_code,"mc_code.py")
+		return model.save_and_run(mc_code,"mc_code.py")
 	else :
 		return "invalid method"
 
