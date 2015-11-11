@@ -8,10 +8,11 @@ class Model(object):
 		self.app_name = "mcblock"
 
 
-	def save_data(self,data,filename):
+	def save_and_run(self,data,filename):
 		if not self.is_mc_running() :
 			return "mc not started"	
-		mc_file_loc = os.getcwd()+"/"+self.app_name+"/data/"+filename
+		#mc_file_loc = os.getcwd()+"/"+self.app_name+"/data/"+filename
+		mc_file_loc = os.getcwd()+"/mcblock/mc_code/"+filename
 		try:		
 			with open(mc_file_loc,"w") as mcfile :
 				mcfile.write("import minecraft\n")
