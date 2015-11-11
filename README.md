@@ -74,20 +74,8 @@ $ python mineblock.py
   </ol>  
   </p>
 
-<p>2) To start MineBlock web service at boot time </p>
-<p><b>Raspbian Wheezy :</b></p>
-<pre>
-$ cd /etc/init.d
-$ sudo nano rc.local
-</pre>
-<p>
-Scroll to bottom then insert these two lines to the bottom of rc.local (don't forget to change <i>[your absolute path of mineblock directory]</i> to real path).
-</p>
-<pre>
-cd [your absolute path of mineblock directory]
-python run.py
-</pre>
-<p><b>Raspbian Jessie :</b></p>
+<p>2) To start MineBlock web service at boot time by crontab </p>
+
 <ol>
 <li><p>
 Create a blank file and give it a name with .sh  for example start.sh and type these two lines.
