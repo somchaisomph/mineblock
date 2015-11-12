@@ -584,25 +584,98 @@ Blockly.Python['steve_where_z'] = function(block) {
 };
 
 // Get Tile position
-Blockly.Blocks['steve_get_tile_pos'] = {
+// Get Tile Pos
+Blockly.Blocks['steve_get_tile_pos_x'] = {
   init: function() {
     this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Get Tile Position");
+        .appendField("Get Tile Position   X :");
     this.setInputsInline(false);
-    this.setOutput(true);
+    this.setOutput(true, "Number");
     this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
 };
-Blockly.Python['steve_get_tile_pos'] = function(block) {
+Blockly.Python['steve_get_tile_pos_x'] = function(block) {
   // TODO: Assemble Python into code variable.
-  var code = 'mc.player.getTilePos()\n';
+  var code = 'mc.player.getTilePos().x';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+Blockly.Blocks['steve_get_tile_pos_y'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("Get Tile Position   Y :");
+    this.setInputsInline(false);
+    this.setOutput(true, "Number");
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['steve_get_tile_pos_y'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'mc.player.getTilePos().y';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['steve_get_tile_pos_z'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("Get Tile Position   Z :");
+    this.setInputsInline(false);
+    this.setOutput(true, "Number");
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['steve_get_tile_pos_z'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'mc.player.getTilePos().z';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// Set Tile Pos
+Blockly.Blocks['steve_set_tile_pos'] = {
+  init: function() {
+    this.appendValueInput("set_tile_pos_x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("Set Tile Position   X :");
+    this.appendValueInput("set_tile_pos_y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("   Y :");
+    this.appendValueInput("set_tile_pos_z")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("   Z :");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(130);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['steve_set_tile_pos'] = function(block) {
+  var value_set_tile_pos_x = Blockly.Python.valueToCode(block, 'set_tile_pos_x', Blockly.Python.ORDER_ATOMIC);
+  var value_set_tile_pos_y = Blockly.Python.valueToCode(block, 'set_tile_pos_y', Blockly.Python.ORDER_ATOMIC);
+  var value_set_tile_pos_z = Blockly.Python.valueToCode(block, 'set_tile_pos_z', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'mc.player.setTilePos('+value_set_tile_pos_x+','+value_set_tile_pos_y+','+value_set_tile_pos_z+')\n';
+  return code;
+};
+
+
 
 
 //Time delay
