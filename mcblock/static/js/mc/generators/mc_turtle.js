@@ -240,7 +240,7 @@ Blockly.Python['steve_block_grp_1'] = function(block) {
   var code = '...';
   // TODO: Change ORDER_NONE to the correct strength.
   //return [code, Blockly.Python.ORDER_NONE];
-  return dropdown_block_grp_1_id
+  return [dropdown_block_grp_1_id,Blockly.Python.ORDER_ATOMIC]
 };
 
 Blockly.Blocks['steve_block_grp_2'] = {
