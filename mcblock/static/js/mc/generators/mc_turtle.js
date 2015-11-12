@@ -583,6 +583,26 @@ Blockly.Python['steve_where_z'] = function(block) {
   return [code, 20];
 };
 
+// Get Tile position
+Blockly.Blocks['steve_get_tile_pos'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("Get Tile Position");
+    this.setInputsInline(false);
+    this.setOutput(true);
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['steve_get_tile_pos'] = function(block) {
+  // TODO: Assemble Python into code variable.
+  var code = 'mc.player.getTilePos()\n';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
 
 
 //Time delay
