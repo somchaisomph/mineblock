@@ -158,6 +158,30 @@
     </div>
   </div>
 </div>
+<!-- Waiting Process Modal -->
+<div class="modal fade bs-example-modal-sm" id="waitingModal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">        
+        <h4 class="modal-title" ><span class="label label-info">Processing</span></h4>
+      </div><!-- / modal-header -->
+      <div class="modal-body">
+        <div class="container-fluid">
+         <div class="row">
+           <div class="col-md-4"></div>
+           <div class="col-md-4">Please Wait</div>
+           <div class="col-md-4"></div>
+        </div>
+         
+       </div> <!-- / container -->
+      </div> <!-- /modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" >Stop Process</button> 
+      </div><!-- / modal-body -->
+    </div>
+  </div>
+</div>
+
 <!-- toolbox -->
   <xml id="toolbox" style="display: none">
 	  <category name="Loops">
@@ -269,6 +293,8 @@
   <script src="/js/msg/js/en.js"></script>
   <script>
     var selected_id = new Array();
+    var rows_per_page = 10;
+    
      $('#restoreModal').on('shown.bs.modal', function (e) {
        get_blocks_from_db();
       });
@@ -345,7 +371,7 @@ function backup_blocks() {
 
 
 function get_blocks_from_db(limit,offset,request_page,total_page){
-  if(!limit) limit=3;
+  if(!limit) limit=rows_per_page;
   if(!offset){
     offset=0;
     request_page=0;
