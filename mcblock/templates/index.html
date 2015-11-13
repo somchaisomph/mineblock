@@ -290,7 +290,6 @@
   
   
   function do_process(){
-
 	  document.getElementById("run_btn").disabled = true;
 	  code = Blockly.Python.workspaceToCode(workspace);
 	  $.ajax({
@@ -307,9 +306,16 @@
 				$('#warning-msg').html("<b>Please start Minecraft Pi</b>");
 				$('#warningModal').modal('show')
 			    console.log("Please start Minecraft Pi")
+                         }else{
+                            console.log(result);
                          }
 			document.getElementById("run_btn").disabled = false;
-			}
+                        $('#waitingModal').modal('hide');
+			},
+                 beforeSend:function(){
+                    $('#waitingModal').modal({'backdrop':'static'});
+                    $('#waitingModal').modal('show');
+                 }
 		});
 		
   }
