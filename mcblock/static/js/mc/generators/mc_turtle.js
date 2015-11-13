@@ -115,33 +115,41 @@ Blockly.Python['steve_set_pen_block'] = function(block) {
   var code = 'i_am.penblock('+value_pen_block_i+')\n';
   return code;
 };
-// Set Drawing At
-Blockly.Blocks['steve_start_drawing_pos'] = {
+// Set position to
+
+Blockly.Blocks['set_pos_to'] = {
   init: function() {
-    this.appendValueInput("start_drawing_x")
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Start Putting At   X:");
-    this.appendValueInput("start_drawing_y")
+        .appendField("SET POSITION TO");
+    this.appendValueInput("pos_x")
+        .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Y:");
-    this.appendValueInput("start_drawing_z")
+        .appendField("X :");
+    this.appendValueInput("pos_y")
+        .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Z:");
+        .appendField("Y :");
+    this.appendValueInput("pos_z")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Z :");
+    this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(180);
+    this.setColour(250);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
-Blockly.Python['steve_start_drawing_pos'] = function(block) {
-  var value_start_drawing_x = Blockly.Python.valueToCode(block, 'start_drawing_x', Blockly.Python.ORDER_ATOMIC);
-  var value_start_drawing_y = Blockly.Python.valueToCode(block, 'start_drawing_y', Blockly.Python.ORDER_ATOMIC);
-  var value_start_drawing_z = Blockly.Python.valueToCode(block, 'start_drawing_z', Blockly.Python.ORDER_ATOMIC);
+Blockly.Python['set_pos_to'] = function(block) {
+  var value_pos_x = Blockly.Python.valueToCode(block, 'pos_x', Blockly.Python.ORDER_ATOMIC);
+  var value_pos_y = Blockly.Python.valueToCode(block, 'pos_y', Blockly.Python.ORDER_ATOMIC);
+  var value_pos_z = Blockly.Python.valueToCode(block, 'pos_z', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = 'i_am.setposition('+value_start_drawing_x+','+value_start_drawing_y+','+value_start_drawing_z+')\n';
+  var code = '';
+  code = 'i_am.setposition('+value_pos_x+','+value_pos_y+','+value_pos_z+')\n';
   return code;
 };
 
