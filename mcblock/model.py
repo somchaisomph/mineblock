@@ -5,7 +5,8 @@ from flask import request
 
 class Model(object):
 	def __init__(self):
-		self.app_name = "mcblock"
+		#self.app_name = "mcblock"
+		self.mc_proc = None
 
 
 	def save_and_run(self,data,filename):
@@ -24,8 +25,11 @@ class Model(object):
 				mcfile.write("i_am = minecraftturtle.MinecraftTurtle(mc,current_point)\n")
 				mcfile.write(data)
 				
-			subprocess.call("python "+mc_file_loc,shell=True)
-			return "ok"
+			
+			self.mc_proc = subprocess.Popen(["python",mc_file_loc],stdout=subprocess.PIPE)
+                        self.mc_proc.wait()
+                        return str(self.mc_proc.returncode)
+			
 		except:
 			return "fail"
 			
