@@ -1,5 +1,3 @@
-// Moving Direction :
-
 // Moving Direction
 Blockly.Blocks['place_block_hor'] = {
   init: function() {
@@ -36,140 +34,45 @@ Blockly.Python['place_block_hor'] = function(block) {
   return code;
 };
 
-
-
-
-
-// Forward
-Blockly.Blocks['steve_forward'] = {
+// Turnning
+Blockly.Blocks['turnning_dir'] = {
   init: function() {
-    this.appendValueInput("steps")
-        .setCheck("Number")
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Forward (specify number of blocks)");
+        .appendField("TURN");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldDropdown([["LEFT", "lt"], ["RIGHT", "rt"], ["UP", "up"], ["DOWN", "dn"]]), "turn_direction");
+    this.appendValueInput("num_blocks")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(", ANGLE (0-359):");
+    this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(330);
+    this.setColour(300);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
-Blockly.Python['steve_forward'] = function(block) {
-  var value_steps = Blockly.Python.valueToCode(block, 'steps', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'i_am.forward('+value_steps+")\n";
-  return code;
-};
-//Backward
-Blockly.Blocks['steve_backward'] = {
-  init: function() {
-    this.appendValueInput("backward")
-        .setCheck("Number")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Backward (specify number of blocks)");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(330);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+Blockly.Python['turnning_dir'] = function(block) {
+  var dropdown_turn_direction = block.getFieldValue('turn_direction');
+  var value_num_blocks = Blockly.Python.valueToCode(block, 'num_blocks', Blockly.Python.ORDER_ATOMIC);
+  var code = '';
+  switch(dropdown_turn_direction){
+     case "lt" : code = 'i_am.left('+value_num_blocks+")\n"; break;
+     case "rt" : code = 'i_am.right('+value_num_blocks+")\n";break;
+     case "up" : code = 'i_am.up('+value_num_blocks+")\n";break;
+     case "dn" : code = 'i_am.down('+value_num_blocks+")\n";break;
+         
   }
-};
-
-Blockly.Python['steve_backward'] = function(block) {
-  var value_backward = Blockly.Python.valueToCode(block, 'backward', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'i_am.backward('+value_backward+')\n';
   return code;
 };
 
 
 
-// Left
-Blockly.Blocks['steve_left'] = {
-  init: function() {
-    this.appendValueInput("left_degree")
-        .setCheck("Number")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Turn left (specify angle in degree)");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(330);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-Blockly.Python['steve_left'] = function(block) {
-  var value_left_degree = Blockly.Python.valueToCode(block, 'left_degree', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'i_am.left('+value_left_degree+")\n";
-  return code;
-};
 
-// Right
-Blockly.Blocks['steve_right'] = {
-  init: function() {
-    this.appendValueInput("right_degree")
-        .setCheck("Number")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Turn right (specify angle in degree)");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(330);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-
-Blockly.Python['steve_right'] = function(block) {
-  var value_right_degree = Blockly.Python.valueToCode(block, 'right_degree', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'i_am.right('+value_right_degree+')\n';
-  return code;
-};
-
-
-// up
-Blockly.Blocks['steve_up'] = {
-  init: function() {
-    this.appendValueInput("up_degree")
-        .setCheck("Number")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Turn up (specify angle in degree)");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(330);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-Blockly.Python['steve_up'] = function(block) {
-  var value_up_degree = Blockly.Python.valueToCode(block, 'up_degree', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'i_am.up('+value_up_degree+')\n';
-  return code;
-};
-
-//Down
-Blockly.Blocks['steve_down'] = {
-  init: function() {
-    this.appendValueInput("down_degree")
-        .setCheck("Number")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Turn down (specify angle in degree)");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setColour(330);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-Blockly.Python['steve_down'] = function(block) {
-  var value_down_degree = Blockly.Python.valueToCode(block, 'down_degree', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  var code = 'i_am.down('+value_down_degree+')\n';
-  return code;
-};
 
 
 // Speed
