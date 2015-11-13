@@ -1,3 +1,45 @@
+// Moving Direction :
+
+// Moving Direction
+Blockly.Blocks['place_block_hor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("PLACE BLOCKS");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("DIRECTION :")
+        .appendField(new Blockly.FieldDropdown([["Foreward", "fw"], ["Backward", "bw"]]), "direction");
+    this.appendValueInput("num_blocks")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(", NUMBER :");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(330);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Python['place_block_hor'] = function(block) {
+  var dropdown_direction = block.getFieldValue('direction');
+  var value_num_blocks = Blockly.Python.valueToCode(block, 'num_blocks', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '';
+  if(dropdown_direction == "fw"){
+     code = 'i_am.forward('+value_num_blocks+")\n";
+  }else if (dropdown_direction == "bw"){
+     code = 'i_am.backward('+value_num_blocks+')\n';
+  }
+  return code;
+};
+
+
+
+
+
 // Forward
 Blockly.Blocks['steve_forward'] = {
   init: function() {
