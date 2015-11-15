@@ -55,10 +55,6 @@ def close_connection(exception):
 def index():
 	return render_template("index.html")
 
-@app.route('/2')
-def index2():
-	return render_template("index2.html")
-
 @app.route('/js/<path:filename>')
 def send_script(filename):
    return send_from_directory(app.static_folder+'/js',filename)
