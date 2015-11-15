@@ -172,11 +172,9 @@
            <div class="col-md-4">Please Wait</div>
            <div class="col-md-4"></div>
         </div>
-         
        </div> <!-- / container -->
       </div> <!-- /modal-body -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" >Stop Process</button> 
       </div><!-- / modal-body -->
     </div>
   </div>
@@ -315,8 +313,7 @@
 			trashcan: true});
   
   
-  function do_process(){
-	  document.getElementById("run_btn").disabled = true;
+ function do_process(){
 	  code = Blockly.Python.workspaceToCode(workspace);
 	  $.ajax({
 		  url: "/process", 
@@ -333,9 +330,9 @@
 				$('#warningModal').modal('show')
 			    console.log("Please start Minecraft Pi")
                          }else{
+                            process_id = result;
                             console.log(result);
                          }
-			document.getElementById("run_btn").disabled = false;
                         $('#waitingModal').modal('hide');
 			},
                  beforeSend:function(){
