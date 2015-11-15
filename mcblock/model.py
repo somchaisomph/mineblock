@@ -5,14 +5,12 @@ from flask import request
 
 class Model(object):
 	def __init__(self):
-		#self.app_name = "mcblock"
 		self.mc_proc = None
 
 
 	def save_and_run(self,data,filename):
 		if not self.is_mc_running() :
 			return "mc not started"	
-		#mc_file_loc = os.getcwd()+"/"+self.app_name+"/data/"+filename
 		mc_file_loc = os.getcwd()+"/mcblock/mc_code/"+filename
 		try:		
 			with open(mc_file_loc,"w") as mcfile :
