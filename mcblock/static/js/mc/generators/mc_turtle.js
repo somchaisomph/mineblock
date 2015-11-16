@@ -482,9 +482,34 @@ Blockly.Python['steve_set_position'] = function(block) {
   var code = 'mc.player.setPos('+value_x_pos+','+value_y_pos+','+value_z_pos+')\n';
   return code;
 };
+//Get player position
+Blockly.Blocks['get_player_position'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("Get Player Position")
+        .appendField(new Blockly.FieldDropdown([[": X", "xpos"], [": Y", "ypos"], [": Z", "zpos"], [": XYZ", "xyzpos"]]), "position_type");
+    this.setOutput(true);
+    this.setColour(255);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['get_player_position'] = function(block) {
+  var dropdown_position_type = block.getFieldValue('position_type');
+  var code = '';
+  switch(dropdown_position_type){
+    case "xpos": code="mc.player.getPos().x";break;
+    case "ypos": code="mc.player.getPos().y";break;
+    case "zpos": code="mc.player.getPos().z";break;
+    case "xyzpos" :code="mc.player.getPos()"; break;
+   
+  }
+  return [code, Blockly.Python.ORDER_ATOMIC];
+};
+/*
 
-
-// Where is Steve
 Blockly.Blocks['steve_where_x'] = {
   init: function() {
     this.appendDummyInput()
@@ -496,9 +521,9 @@ Blockly.Blocks['steve_where_x'] = {
   }
 };
 Blockly.Python['steve_where_x'] = function(block) {
-  // TODO: Assemble Python into code variable.
+  
   var code = 'mc.player.getPos().x';
-  // TODO: Change ORDER_NONE to the correct strength.
+  
   return [code, 20];
 };
 
@@ -513,9 +538,9 @@ Blockly.Blocks['steve_where_y'] = {
   }
 };
 Blockly.Python['steve_where_y'] = function(block) {
-  // TODO: Assemble Python into code variable.
+
   var code = 'mc.player.getPos().y';
-  // TODO: Change ORDER_NONE to the correct strength.
+
   return [code, 20];
 };
 
@@ -530,12 +555,12 @@ Blockly.Blocks['steve_where_z'] = {
   }
 };
 Blockly.Python['steve_where_z'] = function(block) {
-  // TODO: Assemble Python into code variable.
+
   var code = 'mc.player.getPos().z';
-  // TODO: Change ORDER_NONE to the correct strength.
+
   return [code, 20];
 };
-
+*/
 // Get Tile position
 // Get Tile Pos
 Blockly.Blocks['steve_get_tile_pos_x'] = {
