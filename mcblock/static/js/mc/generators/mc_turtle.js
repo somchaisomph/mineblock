@@ -40,18 +40,18 @@ Blockly.Blocks['turnning_dir'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("TURN");
+        .appendField("Turn");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(new Blockly.FieldDropdown([["LEFT", "lt"], ["RIGHT", "rt"], ["UP", "up"], ["DOWN", "dn"]]), "turn_direction");
     this.appendValueInput("num_blocks")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(", ANGLE (0-359):");
+        .appendField(", Angle (0-359):");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(300);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
@@ -59,6 +59,9 @@ Blockly.Blocks['turnning_dir'] = {
 Blockly.Python['turnning_dir'] = function(block) {
   var dropdown_turn_direction = block.getFieldValue('turn_direction');
   var value_num_blocks = Blockly.Python.valueToCode(block, 'num_blocks', Blockly.Python.ORDER_ATOMIC);
+  if (value_num_blocks < 0) value_num_blocks = value_num_blocks * -1;
+  if(value_num_blocks >= 360 ) value_num_blocks = value_num_blocks - 360;
+  
   var code = '';
   switch(dropdown_turn_direction){
      case "lt" : code = 'i_am.left('+value_num_blocks+")\n"; break;
@@ -117,7 +120,7 @@ Blockly.Blocks['set_pos_to'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("SET POSITION TO");
+        .appendField("Set Position To ");
     this.appendValueInput("pos_x")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
