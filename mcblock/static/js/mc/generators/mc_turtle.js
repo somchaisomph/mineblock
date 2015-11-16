@@ -3,19 +3,19 @@ Blockly.Blocks['place_block_hor'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("PLACE BLOCKS");
+        .appendField("Place Blocks");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("DIRECTION :")
+        .appendField("Direction :")
         .appendField(new Blockly.FieldDropdown([["Foreward", "fw"], ["Backward", "bw"]]), "direction");
     this.appendValueInput("num_blocks")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(", NUMBER :");
+        .appendField(", Number :");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(330);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
