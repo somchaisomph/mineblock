@@ -99,10 +99,10 @@ Blockly.Blocks['steve_set_pen_block'] = {
   init: function() {
     this.appendValueInput("pen_block_i")
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Block To Put");
+        .appendField("Set Block Type: ");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(180);
+    this.setColour(60);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
