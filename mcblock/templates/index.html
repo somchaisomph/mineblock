@@ -182,7 +182,7 @@
 
 <!-- toolbox -->
   <xml id="toolbox" style="display: none">
-	  <category name="Loops">
+   <category name="Loops" colour="120">
     <block type="controls_repeat_ext">
       <value name="TIMES">
         <block type="math_number">
@@ -212,7 +212,7 @@
     <block type="controls_flow_statements"></block>
   </category>
     <sep></sep>
-    <category name="Logic">
+    <category name="Logic" colour="210">
     <block type="controls_if"></block>
     <block type="logic_compare"></block>
     <block type="logic_operation"></block>
@@ -222,50 +222,49 @@
     <block type="logic_ternary"></block>
   </category>
   <sep></sep>
-  <category name="Variables" custom="VARIABLE"></category>
+  <category name="Variables" colour="330" custom="VARIABLE"></category>
   <sep></sep>
-  <category name="Functions" custom="PROCEDURE"></category>
+  <category name="Functions" custom="PROCEDURE" colour="290" ></category>
   
     <sep></sep>
-    <category name="Math and Number">
+    <category name="Math and Number" colour="230">
     <block type="math_number"></block>
     <block type="math_arithmetic"></block>
     <block type="math_trig"></block>
     <block type="math_random_int"></block>
   </category>
   <sep></sep>
-  <category name="Text">
+  <category name="Text" colour="345">
     <block type="text"></block>   
     <block type="mc_print"></block>
    </category> 
    
     <sep></sep>
-    <category name="Movement">
+    <category name="Movement" colour="90">
 		<block type="place_block_hor"></block>
+             
 		<block type="turnning_dir"></block>
+               
+                
+		
+                <block type="steve_speed"></block>
 		<block type="set_pos_to"></block>
     </category>
     <sep></sep>
-     <category name="Where is it?">
-		<block type="steve_where_x"></block>
-		<block type="steve_where_y"></block>
-		<block type="steve_where_z"></block>
-		<block type="steve_get_tile_pos_x"></block>
-		<block type="steve_get_tile_pos_y"></block>
-		<block type="steve_get_tile_pos_z"></block>
-    </category>
-    <sep></sep>
-    <category name="Settings">
-		<block type="steve_set_heading"></block>
+    <category name="Position" colour="255">
+             
+                <block type="get_player_position"></block>
+            
+                <block type="steve_set_heading"></block>
 		<block type="steve_set_ver_heading"></block>
 		<block type="steve_set_position"></block>
-		<block type="steve_speed"></block>
-		<block type="steve_set_pen_block"></block>
-		<block type="steve_get_tile_pos_x"></block>
-		<block type="steve_set_tile_pos"></block>
+		
+		
     </category>
     <sep></sep>
-    <category name="Block Types">
+    
+    <category name="Blocks" colour="60">
+		<block type="steve_set_pen_block"></block>
 		<block type="steve_block_grp_1"></block>
 		<block type="steve_block_grp_2"></block>
 		<block type="steve_block_grp_3"></block>
@@ -273,7 +272,7 @@
 					
     </category>
    <sep></sep>
-    <category name="Utility">
+    <category name="Utilities" colour="285">
 		<block type="time_sleep"></block>
 		<block type="steve_clear_area"></block>
     </category>
