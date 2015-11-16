@@ -70,11 +70,6 @@ Blockly.Python['turnning_dir'] = function(block) {
   return code;
 };
 
-
-
-
-
-
 // Speed
 Blockly.Blocks['steve_speed'] = {
   init: function() {
@@ -138,7 +133,7 @@ Blockly.Blocks['set_pos_to'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(250);
+    this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
