@@ -677,6 +677,27 @@ Blockly.Python['time_sleep'] = function(block) {
 };
 
 //Clear Area
+Blockly.Blocks['clear_blocks'] = {
+  init: function() {
+    this.appendValueInput("range")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        .appendField("Clear Space in rage :");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(285);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+
+Blockly.Python['clear_blocks'] = function(block) {
+  var value_range = Blockly.Python.valueToCode(block, 'range', Blockly.Python.ORDER_ATOMIC);
+  var code = 'clear_area('+value_range+',mc.player.getPos())\n';
+  return code;
+};
+/*
 Blockly.Blocks['steve_clear_area'] = {
   init: function() {
     this.appendValueInput("clear_x")
@@ -703,11 +724,10 @@ Blockly.Python['steve_clear_area'] = function(block) {
   var value_clear_x = Blockly.Python.valueToCode(block, 'clear_x', Blockly.Python.ORDER_ATOMIC);
   var value_clear_y = Blockly.Python.valueToCode(block, 'clear_y', Blockly.Python.ORDER_ATOMIC);
   var value_clear_z = Blockly.Python.valueToCode(block, 'clear_z', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
   var code="cpos = mc.player.getTilePos()\n";
   code +="mc.setBlocks(cpos.x, cpos.y, cpos.z, cpos.x+int("+value_clear_x+"/2), cpos.y+int("+value_clear_y+"/2), cpos.z+int("+value_clear_z+"/2),block.AIR.id)\n"
   code += "mc.setBlocks(cpos.x, cpos.y, cpos.z, cpos.x-int("+value_clear_x+"/2), cpos.y-int("+value_clear_y+"/2), cpos.z-int("+value_clear_z+"/2),block.AIR.id)\n";
   
   return code;
 };
-
+*/
