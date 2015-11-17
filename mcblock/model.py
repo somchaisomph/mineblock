@@ -18,11 +18,19 @@ class Model(object):
 				mcfile.write("import block as block\n")
 				mcfile.write("import minecraftturtle\n")
 				mcfile.write("import time\n\n")
+				mcfile.write("def clear_area(size,cpos):\n")
+				mcfile.write("   x=int(cpos.x)\n")
+				mcfile.write("   y=int(cpos.y)\n")
+				mcfile.write("   z=int(cpos.z)\n")
+				mcfile.write("   for ypos in range(y,y+size,1):\n")
+				mcfile.write("      for xpos in range(x,x+size,1) :\n")		
+				mcfile.write("         for zpos in range(z,z+size,1):\n")
+				mcfile.write("	          mc.setBlock(xpos,ypos,zpos,block.AIR.id)\n\n\n")
+
 				mcfile.write("mc = minecraft.Minecraft.create()\n")
-				mcfile.write("current_point = mc.player.getPos()\n")
+				mcfile.write("current_point = mc.player.getPos()\n")				
 				mcfile.write("i_am = minecraftturtle.MinecraftTurtle(mc,current_point)\n")
 				mcfile.write(data)
-				
 			
 			self.mc_proc = subprocess.Popen(["python",mc_file_loc],stdout=subprocess.PIPE)
                         self.mc_proc.wait()
