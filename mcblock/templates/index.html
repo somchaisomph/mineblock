@@ -221,7 +221,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>	
-        <h4 class="modal-title"><span class="label label-info">Back up your Blocks</span></h4>
+        <h4 class="modal-title"><span class="label label-info">Export</span></h4>
       </div>
       <div class="modal-body" id="warning-msg-div">
         <form>
@@ -235,7 +235,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success"  onclick="exportData()">OK</button>
+        <button type="button" class="btn btn-success"  onclick="exportData()">Export</button>
       </div>
     </div>
 
@@ -334,7 +334,7 @@
    <sep></sep>
     <category name="Utilities" colour="285">
 		<block type="time_sleep"></block>
-		<block type="steve_clear_area"></block>
+		<block type="clear_blocks"></block>
     </category>
   </xml>
   <script src="/js/jquery-1.11.3.min.js"></script>
@@ -347,7 +347,7 @@
   <script src="/js/mc/generators/mc_turtle.js"></script>
   <script src="/js/blocks_compressed.js"></script>
   <script src="/js/msg/js/en.js"></script>
-  <script src="/js/Blob.js"></script>
+  <script src="/js/BlobBuilder.js"></script>
   <script src="/js/FileSaver.min.js"></script>
   <script>
     var selected_id = new Array();
@@ -571,8 +571,13 @@ function exportData(){
   var fn = $('#export-name').val()+".xml";
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var data = Blockly.Xml.domToText(xml);
+  /*
   var blob = new Blob([data], {type: 'text/xml'});
   saveAs(blob, fn);
+ */
+  var builder = new BlobBuilder();
+   builder.append(data);
+   saveAs(builder.getBlob('text/plain;charset=utf-8'), fn);
   $('#exportModal').modal('hide');
 }
   </script>
