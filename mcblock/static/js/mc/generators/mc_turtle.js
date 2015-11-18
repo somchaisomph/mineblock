@@ -666,10 +666,12 @@ Blockly.Python['time_sleep'] = function(block) {
 //Clear Area
 Blockly.Blocks['clear_blocks'] = {
   init: function() {
-    this.appendValueInput("range")
-        .setCheck("Number")
+    this.appendDummyInput()
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
-        .appendField("Clear Space in rage :");
+        .appendField("Clear Space :")
+        .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"], ["10", "10"]]), "range")
+        .appendField("Blocks");
+    this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(285);
@@ -677,11 +679,9 @@ Blockly.Blocks['clear_blocks'] = {
     this.setHelpUrl('http://www.example.com/');
   }
 };
-
-
 Blockly.Python['clear_blocks'] = function(block) {
-  var value_range = Blockly.Python.valueToCode(block, 'range', Blockly.Python.ORDER_ATOMIC);
-  var code = 'clear_area('+value_range+',mc.player.getPos())\n';
+  var dropdown_range = block.getFieldValue('range');
+  var code = 'clear_area('+dropdown_range+',mc.player.getPos())\n';
   return code;
 };
 /*
