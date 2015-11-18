@@ -126,6 +126,8 @@ Blockly.Blocks['set_pos_to'] = {
     this.appendValueInput("pos_z")
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Z :");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
     this.setColour(90);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
