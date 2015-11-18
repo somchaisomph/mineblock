@@ -23,8 +23,8 @@ class Model(object):
 				mcfile.write("   y=int(cpos.y)\n")
 				mcfile.write("   z=int(cpos.z)\n")
 				mcfile.write("   for ypos in range(y,y+size,1):\n")
-				mcfile.write("      for xpos in range(x,x+size,1) :\n")		
-				mcfile.write("         for zpos in range(z,z+size,1):\n")
+				mcfile.write("      for xpos in range(x-size,x+size,1) :\n")		
+				mcfile.write("         for zpos in range(z-size,z+size,1):\n")
 				mcfile.write("	          mc.setBlock(xpos,ypos,zpos,block.AIR.id)\n\n\n")
 
 				mcfile.write("mc = minecraft.Minecraft.create()\n")
