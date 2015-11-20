@@ -12,19 +12,19 @@
  
   
   <style>
-   .table tbody tr:hover td, .table tbody tr:hover th {
-      background-color: #eeeeea;  
-    }	
+   
     #blocklyArea {
+     /*
      height: 99%;
       background: #fc9;
       text-align: center;
+*/
     }
   </style>
 </head>
 <body>
 	<div class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="navbar-header">				
 			</div><!-- / navbar-heaer-->
 			<button class="btn btn-success navbar-btn" type="submit" onclick="do_process()" id='run_btn'>Run Code</button>
@@ -41,30 +41,17 @@
 			</div>
 
 			
-			<p class="navbar-text navbar-right"> <a href="#" class="navbar-link">Help</a></p>
+			
 		</div> <!-- /container -->	
 	</div><!-- / navbar -->
 	<br /><br /><br /><br />
 	
 	<div class="container">
 		<div class="row">
-			<div id="blocklyDiv" class="col-xs-12 col-sm-12 col-md-12" style="height:600px;" ></div>	
+			<div id="blocklyDiv" class="col-lg-12 col-xs-12 col-sm-12 col-md-12" style="height:600px;" ></div>	
 		</div><!-- /row -->
 	</div><!-- /container -->	
-	<div class="container">
-		<footer>
-			<div class="row">
-				<div class="col-lg-12">
-					<ul class="list-unstyled">
-						<li class="pull-right"><a href="#top">Back to top</a></li>
-						<li><a href="http://#" >Blog</a></li>						
-						<li><a href="https://github.com/">GitHub</a></li>						
-					</ul>
-					<p>Made by <a href="#" rel="nofollow">N3A Media</a></p>
-				</div>
-			</div><!-- /row -->
-		</footer>
-	</div><!-- /container -->
+	
 	<!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -232,6 +219,7 @@
   		</div>
   
 	</form>
+        <div  id="export-result"> </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -240,6 +228,8 @@
     </div>
 
   </div>
+
+
 <!-- toolbox -->
   <xml id="toolbox" style="display: none">
    <category name="Loops" colour="120">
@@ -268,8 +258,7 @@
         </block>
       </value>
     </block>
-    <block type="controls_forEach"></block>
-    <block type="controls_flow_statements"></block>
+ 
   </category>
     <sep></sep>
     <category name="Logic" colour="210">
@@ -279,7 +268,6 @@
     <block type="logic_negate"></block>
     <block type="logic_boolean"></block>
     <block type="logic_null"></block>
-    <block type="logic_ternary"></block>
   </category>
   <sep></sep>
   <category name="Variables" colour="330" custom="VARIABLE"></category>
@@ -290,46 +278,131 @@
     <category name="Math and Number" colour="230">
     <block type="math_number"></block>
     <block type="math_arithmetic"></block>
-    <block type="math_trig"></block>
     <block type="math_random_int"></block>
   </category>
   <sep></sep>
   <category name="Text" colour="345">
     <block type="text"></block>   
     <block type="mc_print"></block>
-   </category> 
-   
+   </category>    
     <sep></sep>
     <category name="Movement" colour="90">
-		<block type="place_block_hor"></block>
-             
+		<block type="place_block_hor"></block>             
 		<block type="turnning_dir"></block>
-               
-                
-		
                 <block type="steve_speed"></block>
 		<block type="set_pos_to"></block>
     </category>
     <sep></sep>
-    <category name="Position" colour="255">
-             
-                <block type="get_player_position"></block>
-            
+    <category name="Position" colour="255">             
+                <block type="get_player_position"></block>            
                 <block type="steve_set_heading"></block>
 		<block type="steve_set_ver_heading"></block>
 		<block type="steve_set_position"></block>
-		
-		
     </category>
     <sep></sep>
     
     <category name="Blocks" colour="60">
-		<block type="steve_set_pen_block"></block>
-		<block type="steve_block_grp_1"></block>
-		<block type="steve_block_grp_2"></block>
-		<block type="steve_block_grp_3"></block>
-		<block type="steve_block_grp_4"></block>
-					
+         <category name="Command" colour="60">
+         	<block type="steve_set_pen_block"></block>
+         </category>
+         <category name="Decoration" colour="60">
+		<block type="nether_react"></block>
+		<block type="bed_blk"></block>
+		<block type="brick_blk"></block>
+		<block type="book_shelf"></block>
+		<block type="stairs_cobble_blk"></block>
+		<block type="stairs_wood_blk"></block>	 
+		<block type="chest_blk"></block>
+		<block type="ladder_blk"></block>
+		<block type="furnace_inact_blk"></block>
+		<block type="furnace_act_blk"></block>
+		<block type="fence_gate_blk"></block>
+		<block type="door_wood_blk"></block>
+		<block type="door_iron_blk"></block>
+		<block type="fence_blk"></block>
+		<block type="glass_blk"></block>
+		<block type="glass_pane_blk"></block>
+		<block type="craft_tab_blk"></block>
+		<block type="farm_land_blk"></block>
+         </category>
+         <category name="Light emitted" colour="60">
+             <block type="glow_stone"></block>
+	     <block type="torch_blk"></block>
+         </category>
+         <category name="Fluid" colour="60">
+		<block type="water_blk"></block>
+		<block type="water_stat_blk"></block>
+ 		<block type="dirt_blk"></block>
+ 		<block type="lava_blk"></block>
+ 		<block type="lava_stat_blk"></block>
+         </category>
+	
+	<category name="Biome" colour="60">
+		<block type="cactus_blk"></block>	
+		<block type="sugar_canes_blk"></block>
+		<block type="flower_yell_blk"></block>	 
+		<block type="flower_cy_blk"></block>	 
+	 	<block type="mushroom_brw_blk"></block>	 
+	 	<block type="mushroom_red_blk"></block>	 
+		<block type="wood_blk"></block>
+		<block type="wool_blk"></block>	 
+		<block type="leaves_blk"></block>
+		<block type="grass_tall_blk"></block>
+		<block type="sapling_blk"></block>
+		<block type="melon_blk"></block>
+
+
+         </category>
+	<category name="Solid" colour="60">
+                <category name="Stone" colour="60">
+			<block type="bed_rck_blk"></block>	                
+			<block type="cob_stone_blk"></block>	
+			<block type="moss_stone_blk"></block>	 	 		
+			<block type="gravel_blk"></block>
+			<block type="slap_blk"></block>
+			<block type="slap_dbl_blk"></block>
+			<block type="sand_blk"></block>	 
+                	<block type="sand_stone"></block>	
+			<block type="stone_brick_blk"></block>	
+               		<block type="stone_blk"></block>	
+                </category>
+                <category name="Gem" colour="60">
+			<block type="diamond_blk"></block>
+                	<block type="glow_obsidian"></block>	 
+			<block type="gold_blk"></block>	 		
+			<block type="lapis_blk"></block>	 		
+                </category>
+                <category name="Ore" colour="60">
+			<block type="coal_ore"></block>	
+                	<block type="diamond_ore"></block>
+                	<block type="iron_ore"></block>		
+			<block type="gold_ore"></block>
+			<block type="lapis_ore"></block>	 
+               		<block type="redstone_ore"></block>	 
+                </category>
+    		<category name="Etc" colour="60">
+
+			<block type="grass_blk"></block>	
+			<block type="ice_blk"></block>	
+			<block type="iron_blk"></block>	 
+			<block type="plank_blk"></block>
+		</category>
+
+		
+         </category>
+	<category name="Etc" colour="60">
+		<block type="blk_air"></block>	 
+		<block type="blk_COBWEB"></block>
+		<block type="blk_tnt"></block>	 
+		<block type="blk_fire"></block>	 
+		<block type="blk_snow"></block>	 
+		<block type="snow_blk"></block>	 	
+		<block type="clay_blk"></block>	 
+		<block type="bedrock_invis_blk"></block>
+		
+			
+         </category>
+        				
     </category>
    <sep></sep>
     <category name="Utilities" colour="285">
@@ -339,16 +412,17 @@
   </xml>
   <script src="/js/jquery-1.11.3.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
- <script src="/js/scripts.js"></script>
-
+  <script src="/js/scripts.js"></script>
   <script src="/js/blockly_compressed.js"></script>
   <script src="/js/python_compressed.js"></script>
   <script src="/js/mc/generators/cmd_grp.js"></script>
   <script src="/js/mc/generators/mc_turtle.js"></script>
   <script src="/js/blocks_compressed.js"></script>
   <script src="/js/msg/js/en.js"></script>
+<!--
   <script src="/js/BlobBuilder.js"></script>
   <script src="/js/FileSaver.min.js"></script>
+-->
   <script>
     var selected_id = new Array();
     var rows_per_page = 10;
@@ -377,8 +451,6 @@
   
   
   function do_process(){
-
-	
 	  code = Blockly.Python.workspaceToCode(workspace);
 	  $.ajax({
 		  url: "/process", 
@@ -562,23 +634,30 @@ function loadLocalData(evt){
           Blockly.Xml.domToWorkspace( Blockly.mainWorkspace, xml );
 	}
       reader.readAsText(file);	
+      setTimeout(function(){
+         $('#loadLocalModal').modal('hide');
+      },1000);
    }else{
       document.getElementById('load-result').innerHTML="<b>File Not Supported</b>";
    }
    
 }
-function exportData(){
+function exportData(){    
   var fn = $('#export-name').val()+".xml";
   var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
   var data = Blockly.Xml.domToText(xml);
-  /*
-  var blob = new Blob([data], {type: 'text/xml'});
-  saveAs(blob, fn);
- */
-  var builder = new BlobBuilder();
-   builder.append(data);
-   saveAs(builder.getBlob('text/plain;charset=utf-8'), fn);
-  $('#exportModal').modal('hide');
+  $('#export-result').html("Exporting...");
+  outer.save_to_disk(data,fn);
+  
+  
+  
+}
+function export_done(){
+  $('#export-result').html("Exporting is done.");
+  setTimeout(function(){
+     $('#export-result').html("");
+     $('#exportModal').modal('hide');
+   },1000);
 }
   </script>
 </body>
