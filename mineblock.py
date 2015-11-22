@@ -1,33 +1,60 @@
-import sys 
-from PyQt4 import QtGui
-from PySide.QtCore import QUrl, QSize
-from PySide.QtGui import QApplication, QMainWindow, QWidget, QIcon
-from PySide.QtWebKit import QWebView
+from PyQt4 import QtCore, QtGui, QtWebKit  
+from PyQt4.QtGui import QIcon
 
 
-class Browser(QMainWindow):
+class MineBlockApp(QtWebKit.QWebView):  
+    def __init__(self, parent=None):
+        super(MineBlockApp, self).__init__(parent)
+        self.mineblock_url="http://localhost:5000"
+        self.setWindowTitle("MineBlock")
+        self.setWindowIcon(QIcon('/home/pi/blockly-proj/mcblock/static/images/icons/mineblock.png')) 
+      
+        #add javascript bridge
+        self.page().mainFrame().addToJavaScriptWindowObject("outer", self)
 
-    def __init__(self):
-        QMainWindow.__init__(self)
-        self.resize(900, 700)
-	self.setWindowTitle("MineBlock")
-	self.setWindowIcon(QIcon('/home/pi/blockly-proj/mcblock/static/images/icons/mineblock.png')) 
-        self.web_view = QWebView()
-        self.setCentralWidget(self.web_view)
+        self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DontDelegateLinks)
+        #self.linkClicked.connect(self.link_clicked)
+	#self.urlChanged.connect(self.url_changed)
+        self.loadFinished.connect(self.on_loadFinished)
+        self.load(QtCore.QUrl(self.mineblock_url))
 
-        self.web_view.loadFinished.connect(self._load_finished)
+    @QtCore.pyqtSlot(str)  
+    def showMessage(self, message):
+        print "Message from website:", message
+        
+    @QtCore.pyqtSlot(str,str)  
+    def save_to_disk(self,data,fn):
+	import os
+	data_file_loc = os.getenv('HOME')+"/"+fn
+	try:		
+	   with open(data_file_loc,"w") as data_file :
+		data_file.write(data)
+        except:
+           pass
+        #call javascript function
+        self.page().mainFrame().evaluateJavaScript("export_done()") 
 
-    def _load_finished(self):
-        frame = self.web_view.page().mainFrame()
-        self.web_view.page().setViewportSize(frame.contentsSize())
+    @QtCore.pyqtSlot()
+    def on_loadFinished(self):
+        frame = self.page().mainFrame()
+        self.page().setViewportSize(frame.contentsSize())	
         self.resize(frame.contentsSize())
-        html_data = frame.toHtml()
+'''    
+    def url_changed(self):
+   	print self.url().toString()
+        
 
+    def link_clicked(self,url):
+	print url
+'''        
 
-if __name__ == '__main__': 
-    app = QApplication(sys.argv) 
-    browser = Browser() 
-    r = QUrl("http://localhost:5000")
-    browser.web_view.load(r)
-    browser.show()
-    app.exec_()
+if __name__ == "__main__":
+    import sys
+
+    app = QtGui.QApplication(sys.argv)
+    app.setApplicationName('MineBlockApp')
+
+    main = MineBlockApp()
+    main.show()
+
+    sys.exit(app.exec_())
