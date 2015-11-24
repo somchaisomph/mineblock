@@ -39,6 +39,7 @@
 				    <li><a href="#" data-toggle="modal" data-target="#exportModal">Export </a></li>
 				  </ul>
 			</div>
+			<button class="btn btn-warning navbar-btn" onclick="clear_workspace()" id='clear_btn'>Clear Code</button>
 
 			
 			
@@ -306,16 +307,17 @@
          	<block type="steve_set_pen_block"></block>
          </category>
          <category name="Decoration" colour="60">
-		<block type="nether_react"></block>
-		<block type="bed_blk"></block>
+		<block type="nether_react"></block>         	
 		<block type="brick_blk"></block>
 		<block type="book_shelf"></block>
 		<block type="stairs_cobble_blk"></block>
 		<block type="stairs_wood_blk"></block>	 
 		<block type="chest_blk"></block>
 		<block type="ladder_blk"></block>
+                <!--             
 		<block type="furnace_inact_blk"></block>
 		<block type="furnace_act_blk"></block>
+                -->
 		<block type="fence_gate_blk"></block>
 		<block type="door_wood_blk"></block>
 		<block type="door_iron_blk"></block>
@@ -442,16 +444,18 @@
      var blocklyDiv = document.getElementById('blocklyDiv');
      var workspace = Blockly.inject(blocklyDiv,
         {	media: '/media/',
-			toolbox: document.getElementById('toolbox'),
-			grid: {spacing: 20,
-				length: 3,
-				colour: '#ccc',
-				snap: true},
-			trashcan: true});
+		toolbox: document.getElementById('toolbox'),
+		grid: {spacing: 20,
+		       length: 3,
+		       colour: '#ccc',
+			snap: true},
+		trashcan: true});
   
   
   function do_process(){
 	  code = Blockly.Python.workspaceToCode(workspace);
+          //console.log(code);
+          //return;
 	  $.ajax({
 		  url: "/process", 
 		  data:{"mc_code":code},
@@ -630,6 +634,7 @@ function loadLocalData(evt){
    if (file.type.match(textType)) {
       var reader = new FileReader();
        reader.onload = function(e) {
+          clear_workspace();
 	  var xml = Blockly.Xml.textToDom(reader.result);
           Blockly.Xml.domToWorkspace( Blockly.mainWorkspace, xml );
 	}
@@ -658,6 +663,10 @@ function export_done(){
      $('#export-result').html("");
      $('#exportModal').modal('hide');
    },1000);
+}
+
+function clear_workspace(){
+  Blockly.mainWorkspace.clear();
 }
   </script>
 </body>
