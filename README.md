@@ -42,7 +42,7 @@ $ cd  /home/pi/mineblock
 $ pytho run.py
 </pre>
 <p>
-2) Open Minecraft Pi.
+2) Minecraft Pi must be running.
 </p>
 <p>
 3) You have 2 choices to open MineBlock 
