@@ -10,7 +10,7 @@ class Model(object):
 
 	def save_and_run(self,data,filename):
 		if not self.is_mc_running() :
-			return "Minecraft must be running."	
+			return "mc not started"	
 		mc_file_loc = os.getcwd()+"/mcblock/mc_code/"+filename
 		try:		
 			with open(mc_file_loc,"w") as mcfile :
