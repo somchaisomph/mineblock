@@ -123,7 +123,7 @@ Blockly.Blocks['steve_set_ver_heading'] = {
   init: function() {
     this.appendValueInput("vheading_angle")
         .setCheck("Number")
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        //.appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
         .appendField("Set Vertical Heading (specify angle in degree)");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -143,7 +143,7 @@ Blockly.Blocks['steve_set_heading'] = {
   init: function() {
     this.appendValueInput("NAME")
         .setCheck("Number")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
+        //.appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"))
         .appendField("Set Heading To (specify angle in degree)");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -166,7 +166,7 @@ Blockly.Blocks['steve_set_position'] = {
     this.appendValueInput("x_pos")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        //.appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
         .appendField("Set Player To X:");
     this.appendValueInput("y_pos")
         .setCheck("Number")
@@ -197,7 +197,7 @@ Blockly.Blocks['get_player_position'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldImage("/images/icons/map_pin.png", 15, 15, "*"))
+        //.appendField(new Blockly.FieldImage("/images/icons/map_pin.png", 15, 15, "*"))
         .appendField("Get Player Position")
         .appendField(new Blockly.FieldDropdown([[": X", "xpos"], [": Y", "ypos"], [": Z", "zpos"], [": XYZ", "xyzpos"]]), "position_type");
     this.setOutput(true);
@@ -331,7 +331,7 @@ Blockly.Python['time_sleep'] = function(block) {
 Blockly.Blocks['clear_blocks'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        //.appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
         .appendField("Clear Space :")
         .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"], ["10", "10"]]), "range")
         .appendField("Blocks");
@@ -353,14 +353,14 @@ Blockly.Python['clear_blocks'] = function(block) {
 Blockly.Blocks['place_block_hor'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        .appendField(new Blockly.FieldImage("/images/icons/place_block.png", 15, 15, "*"))
         .appendField("Place Blocks ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Direction :")
         .appendField(new Blockly.FieldDropdown([["Forward", "fw"], ["Backward", "bw"]]), "direction");
     this.appendValueInput("num_blocks")
-        .setCheck("Number")
+        .setCheck(null)
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Number of Blocks :");
     this.setInputsInline(true);
@@ -374,8 +374,10 @@ Blockly.Blocks['place_block_hor'] = {
 Blockly.Python['place_block_hor'] = function(block) {
   var dropdown_direction = block.getFieldValue('direction');
   var value_num_blocks = Blockly.Python.valueToCode(block, 'num_blocks', Blockly.Python.ORDER_ATOMIC);
-  value_num_blocks-=1;
-  if (value_num_blocks<0) value_num_blocks=0 
+  if(!isNaN(value_num_blocks)){
+    value_num_blocks-=1;
+    if (value_num_blocks<0) value_num_blocks=0 
+  }
   var code = '';
   if(dropdown_direction == "fw"){
      code = 'i_am.forward('+value_num_blocks+")\n";
@@ -383,19 +385,20 @@ Blockly.Python['place_block_hor'] = function(block) {
      code = 'i_am.backward('+value_num_blocks+')\n';
   }
   return code;
+  //return [code, Blockly.Python.ORDER_ATOMIC];
 };
 // Turnning
 Blockly.Blocks['turnning_dir'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        .appendField(new Blockly.FieldImage("/images/icons/navigator.png", 15, 15, "*"))
         .appendField("Turn");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(new Blockly.FieldDropdown([["LEFT", "lt"], ["RIGHT", "rt"], ["UP", "up"], ["DOWN", "dn"]]), "turn_direction");
     this.appendValueInput("num_blocks")
-        .setCheck("Number")
+        //.setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField(", Angle (0-359):");
     this.setInputsInline(true);
@@ -426,7 +429,7 @@ Blockly.Python['turnning_dir'] = function(block) {
 Blockly.Blocks['steve_speed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        .appendField(new Blockly.FieldImage("/images/icons/speed.png", 15, 15, "*"))
         .appendField("Set Speed To :")
         .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"], ["9", "9"], ["10", "10"]]), "moving _speed");
     this.setInputsInline(true);
@@ -468,7 +471,7 @@ Blockly.Blocks['set_pos_to'] = {
   init: function() {
     this.appendValueInput("pos_x")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        .appendField(new Blockly.FieldImage("/images/icons/position.png", 15, 15, "*"))
         .appendField("Set Position to   X :");
     this.appendValueInput("pos_y")
         .setAlign(Blockly.ALIGN_RIGHT)
