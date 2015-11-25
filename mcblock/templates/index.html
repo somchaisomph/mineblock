@@ -460,15 +460,15 @@
 		  url: "/process", 
 		  data:{"mc_code":code},
 		  success: function(result){
-		  	$('#waitingModal').modal('hide');
+			$('#waitingModal').modal('hide');
 	                if(result == "ok"){
 			    console.log("Done");
                          }else if (result=="fail"){
 				$('#warning-msg').html("<b>System Error, You should restart Rasberry Pi.</b>");
 				$('#warningModal').modal('show')
                             console.log("Check system");
-			 }else if (result=="mc not started"){
-				$('#warning-msg').html("<b>Minecraft Pi must be running.</b>");
+			 }else if (result=="aaaamc not started"){
+				$('#warning-msg').html("<b>Minecraft must be running.</b>");
 				$('#warningModal').modal('show')
 			    console.log("Please start Minecraft Pi")
                          }else{
@@ -477,7 +477,7 @@
                          }
 			
                         
-			},
+		  },
                  beforeSend:function(){
                     $('#waitingModal').modal({'backdrop':'static'});
                     $('#waitingModal').modal('show');
