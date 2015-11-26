@@ -2,7 +2,7 @@
 Name=MineBlock
 Comment=Fun with Minecraft together with learning to program
 Exec=python [your absolute path of mineblock directory]/mineblock.py
-Icon= [your absolute path of mineblock directory]/mcblock/static/images/icons/mineblock.png
+Icon= [your absolute path of mineblock directory]/mcblock/static/images/icons/mb1.png
 Terminal=false
 Type=Application
 Categories=Application;Game;
