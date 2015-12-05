@@ -287,24 +287,33 @@
     <block type="mc_print"></block>
    </category>    
     <sep></sep>
-    <category name="Movement" colour="90">
+    <category name="Placing" colour="255">
+
+        <category name="Movement" colour="90">
 		<block type="place_block_hor"></block>             
 		<block type="turnning_dir"></block>
                 <block type="steve_speed"></block>
 		<block type="set_pos_to"></block>
-    </category>
-    <sep></sep>
-    <category name="Position" colour="255">             
+		<block type="set_block"></block>
+         	<block type="set_blocks"></block>
+        </category>
+    
+        <category name="Position" colour="255">             
+                <block type="get_tile_pos"></block>     
+                <block type="set_tile_pos"></block>            
                 <block type="get_player_position"></block>            
                 <block type="steve_set_heading"></block>
 		<block type="steve_set_ver_heading"></block>
 		<block type="steve_set_position"></block>
+        </category>
     </category>
     <sep></sep>
     
     <category name="Blocks" colour="60">
          <category name="Command" colour="60">
          	<block type="steve_set_pen_block"></block>
+                <block type="get_block"></block>
+         	
          </category>
          <category name="Decoration" colour="60">
 		<block type="nether_react"></block>         	
