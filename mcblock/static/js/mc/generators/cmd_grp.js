@@ -23,7 +23,7 @@ Blockly.Python['mc_print'] = function(block) {
 Blockly.Blocks['mc_gettilepos_x'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        //.appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
         .appendField("Tile's X position");
     this.setOutput(true);
     this.setColour(65);
@@ -167,7 +167,7 @@ Blockly.Blocks['steve_set_position'] = {
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
         //.appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
-        .appendField("Set Player To X:");
+        .appendField("Set Player Position X:");
     this.appendValueInput("y_pos")
         .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -179,7 +179,7 @@ Blockly.Blocks['steve_set_position'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(255);
-    this.setTooltip('');
+    this.setTooltip('Moves the player to a position in the world by passing co-ordinates ([x,y,z])');
     this.setHelpUrl('http://www.example.com/');
   }
 };
@@ -191,6 +191,38 @@ Blockly.Python['steve_set_position'] = function(block) {
   var code = 'mc.player.setPos('+value_x_pos+','+value_y_pos+','+value_z_pos+')\n';
   return code;
 };
+
+//Set Tile Position
+Blockly.Blocks['set_tile_pos'] = {
+  init: function() {
+    this.appendValueInput("x0")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Set Player Tile Position To X :");
+    this.appendValueInput("y0")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Y :");
+    this.appendValueInput("z0")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Z :");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(255);
+    this.setTooltip('Move the player to a tile position in the world by passing co-ordinates ([x,y,z])');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['set_tile_pos'] = function(block) {
+  var value_x0 = Blockly.Python.valueToCode(block, 'x0', Blockly.Python.ORDER_ATOMIC);
+  var value_y0 = Blockly.Python.valueToCode(block, 'y0', Blockly.Python.ORDER_ATOMIC);
+  var value_z0 = Blockly.Python.valueToCode(block, 'z0', Blockly.Python.ORDER_ATOMIC);
+  var code = 'mc.player.setTilePos('+value_x0+','+value_y0+','+value_z0+')\n';
+  return code;
+};
+
 
 //Get player position
 Blockly.Blocks['get_player_position'] = {
@@ -220,21 +252,31 @@ Blockly.Python['get_player_position'] = function(block) {
 };
 
 // Get Tile Pos
-Blockly.Blocks['steve_get_tile_pos_x'] = {
+Blockly.Blocks['get_tile_pos'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
-        .appendField("Get Tile Position   X :");
+        //.appendField(new Blockly.FieldImage("/images/icons/block-icon.png", 15, 15, "*"))
+        .appendField("Get Tile Position :")
+	.appendField(new Blockly.FieldDropdown([[": X", "xpos"], [": Y", "ypos"], [": Z", "zpos"], [": XYZ", "xyzpos"]]), "tile_pos_type");
     this.setInputsInline(false);
     this.setOutput(true, "Number");
-    this.setColour(120);
+    this.setColour(255);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
 };
-Blockly.Python['steve_get_tile_pos_x'] = function(block) {
-  var code = 'mc.player.getTilePos().x';
-  return [code, Blockly.Python.ORDER_NONE];
+Blockly.Python['get_tile_pos'] = function(block) {
+  var dropdown_tile_pos_type = block.getFieldValue('tile_pos_type');
+  var code = '';
+   switch(dropdown_tile_pos_type){
+    case "xpos": code="mc.player.getTilePos().x";break;
+    case "ypos": code="mc.player.getTilePos().y";break;
+    case "zpos": code="mc.player.getTilePos().z";break;
+    case "xyzpos" :code="mc.player.getTilePos()"; break;
+   
+  }
+  //return [code, Blockly.Python.ORDER_NONE];
+  return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['steve_get_tile_pos_y'] = {
@@ -517,3 +559,119 @@ Blockly.Python['steve_pen_status'] = function(block) {
     return "i_am.pendown()\n";
 
 };
+
+//Place Blocks
+Blockly.Blocks['set_block'] = {
+  init: function() {
+    this.appendValueInput("block_type")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldImage("/images/icons/place_block.png", 15, 15, "*"))
+        .appendField("Place Block Type :");
+    this.appendValueInput("block_pos_x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("At  X :");
+    this.appendValueInput("block_pos_y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Y :");
+    this.appendValueInput("block_pos_z")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Z :");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(60);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['set_block'] = function(block) {
+  var value_block_type = Blockly.Python.valueToCode(block, 'block_type', Blockly.Python.ORDER_ATOMIC);
+  var value_block_pos_x = Blockly.Python.valueToCode(block, 'block_pos_x', Blockly.Python.ORDER_ATOMIC);
+  var value_block_pos_y = Blockly.Python.valueToCode(block, 'block_pos_y', Blockly.Python.ORDER_ATOMIC);
+  var value_block_pos_z = Blockly.Python.valueToCode(block, 'block_pos_z', Blockly.Python.ORDER_ATOMIC);
+  var code = 'mc.setBlock('+value_block_pos_x+','+value_block_pos_y+','+value_block_pos_z+','+value_block_type+')\n';
+  return code;
+};
+
+Blockly.Blocks['set_blocks'] = {
+  init: function() {
+    this.appendValueInput("block_type")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldImage("/images/icons/place_block.png", 15, 15, "*"))
+        .appendField("Place Many Blocks, Type :");
+    this.appendValueInput("start_x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Start from X :");
+    this.appendValueInput("start_y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Y :");
+    this.appendValueInput("start_z")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Z :");
+    this.appendValueInput("end_x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("To  X :");
+    this.appendValueInput("end_y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Y :");
+    this.appendValueInput("end_z")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Z :");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(60);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['set_blocks'] = function(block) {
+  var value_block_type = Blockly.Python.valueToCode(block, 'block_type', Blockly.Python.ORDER_ATOMIC);
+  var value_start_x = Blockly.Python.valueToCode(block, 'start_x', Blockly.Python.ORDER_ATOMIC);
+  var value_start_y = Blockly.Python.valueToCode(block, 'start_y', Blockly.Python.ORDER_ATOMIC);
+  var value_start_z = Blockly.Python.valueToCode(block, 'start_z', Blockly.Python.ORDER_ATOMIC);
+  var value_end_x = Blockly.Python.valueToCode(block, 'end_x', Blockly.Python.ORDER_ATOMIC);
+  var value_end_y = Blockly.Python.valueToCode(block, 'end_y', Blockly.Python.ORDER_ATOMIC);
+  var value_end_z = Blockly.Python.valueToCode(block, 'end_z', Blockly.Python.ORDER_ATOMIC);
+  var code = 'mc.setBlocks('+value_start_x+','+value_start_y+','+value_start_z+','+value_end_x+','+value_end_y+','+value_end_z+','+value_block_type+')\n';
+  return code;
+};
+//-----------------------------------------------------------------
+//Get Block Data
+Blockly.Blocks['get_block'] = {
+  init: function() {
+    this.appendValueInput("blck_x")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldImage("/images/icons/place_block.png", 15, 15, "*"))
+        .appendField("Get Block Type At  X :");
+    this.appendValueInput("blck_y")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Y :");
+    this.appendValueInput("blck_z")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Z :");
+    this.setInputsInline(false);
+    this.setOutput(true);
+    this.setColour(60);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+Blockly.Python['get_block'] = function(block) {
+  var value_blck_x = Blockly.Python.valueToCode(block, 'blck_x', Blockly.Python.ORDER_ATOMIC);
+  var value_blck_y = Blockly.Python.valueToCode(block, 'blck_y', Blockly.Python.ORDER_ATOMIC);
+  var value_blck_z = Blockly.Python.valueToCode(block, 'blck_z', Blockly.Python.ORDER_ATOMIC);
+  var code = 'mc.getBlockWithData('+value_blck_x+','+value_blck_y+','+value_blck_z+')';
+  return [code, Blockly.Python.ORDER_ATOMIC];
+};
+
